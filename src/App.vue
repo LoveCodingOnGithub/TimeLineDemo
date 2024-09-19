@@ -1,15 +1,21 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import TimeLine from "./components/TimeLine/src/index.vue";
 
 const timelineRef = ref();
 
 const zoomIndex = ref(0);
 
+let timer = null;
 onMounted(() => {
-  setInterval(() => {
+  timer = setInterval(() => {
     timelineRef.value.setTime(Date.now());
   }, 1000);
+});
+
+onBeforeUnmount(() => {
+  clearInterval(timer);
+  timer = null;
 });
 </script>
 
